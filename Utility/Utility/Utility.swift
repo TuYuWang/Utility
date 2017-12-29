@@ -6,9 +6,7 @@
 //  Copyright © 2017年 MYXG. All rights reserved.
 //
 
-import UIKit
-
-public struct Utility<Base> {
+public struct Utility<Base>{
     public let base: Base
     public init(_ base: Base) {
         self.base = base
@@ -24,6 +22,8 @@ extension UtilityCompatible {
     public var ul: Utility<Self> { get { return Utility(self) } }
 }
 
+extension String: UtilityCompatible {}
+
 extension Array {
     
     @discardableResult
@@ -36,7 +36,6 @@ extension Array {
     }
     
 }
-
 
 extension Sequence {
     

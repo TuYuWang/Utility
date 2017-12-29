@@ -25,8 +25,18 @@ class ViewController: UIViewController {
         diys.reduce(0, +)
 
         diys.forEach { diy in
-            print(diy)
+//            print(diy)
         }
+        
+        view.backgroundColor = "#bac8e1".ul.hex
+        
+        let str = "12345678"
+        print(str.dropLast(2))
+        
+        let array = Array(str)
+        
+        print(String(array[0..<2]))
+        
     }
 
     override func didReceiveMemoryWarning() {
