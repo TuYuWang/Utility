@@ -5,6 +5,7 @@
 //  Created by Mac on 2017/12/28.
 //  Copyright © 2017年 MYXG. All rights reserved.
 //
+import UIKit
 
 public struct Utility<Base>{
     public let base: Base
@@ -23,6 +24,9 @@ extension UtilityCompatible {
 }
 
 extension String: UtilityCompatible {}
+extension CGFloat: UtilityCompatible {}
+extension Int: UtilityCompatible {}
+extension Double: UtilityCompatible {}
 
 extension Array {
     

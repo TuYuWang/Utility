@@ -13,6 +13,10 @@ extension Utility where Base: Collection {
     public var hex: UIColor {
         return stringTransformToHexColor()
     }
+    
+    public var img: UIImage? {
+        return UIImage(named: String(describing: base))
+    }
 }
 
 extension Utility {

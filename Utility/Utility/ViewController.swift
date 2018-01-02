@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         
         utility()
         
-        alamofire()
+//        alamofire()
 
     }
 
@@ -47,8 +47,22 @@ class ViewController: UIViewController {
         print(String(array[0..<2]))
         
         
-        print("md5: \(str.ul.md5.str!)")
+        print("md5: \(str.ul.md5)")
         print("md5: \(str.ul.md5.data!)")
+
+        print("img: \("2".ul.img!)")
+        
+        let float: CGFloat = 2
+        
+        print("CGFloat: \(float.ul.vpx)")
+        print("CGFloat: \(CGFloat(float.hashValue))")
+
+        let md5 = str.ul.md5
+        print(md5)
+        
+        print(100.ul.vpx)
+        print(100.ul.hpx)
+        print(2.0.ul.vpx)
     }
     
     fileprivate func alamofire() {

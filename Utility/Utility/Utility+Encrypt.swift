@@ -35,6 +35,24 @@ extension Utility where Base: Collection {
     }
 }
 
+// MARK: - CustomStringConvertible
+
+extension EncryptResult: CustomStringConvertible {
+    
+    public var description: String {
+        return str ?? ""
+    }
+}
+
+// MARK: - CustomDebugStringConvertible
+
+extension EncryptResult: CustomDebugStringConvertible {
+    
+    public var debugDescription: String {
+        return str!
+    }
+}
+
 fileprivate enum EncryptType {
     
     case md5
@@ -83,6 +101,7 @@ public struct EncryptResult {
     }
 }
 
+//MARK: - Core
 extension Utility {
     
     fileprivate func encrypt(for str: Base, with type: EncryptType) -> EncryptResult {
