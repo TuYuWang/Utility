@@ -15,8 +15,9 @@
 		04E9A4B91FF53A4500BC2EFC /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9A4B81FF53A4500BC2EFC /* Utility.swift */; };
 		1039332823CDF20B2D7F8266 /* Pods_Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788DB7D5354224300FF2DBA6 /* Pods_Utility.framework */; };
 		E964F4881FFB227600DB707E /* Utility+Encrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E964F4871FFB227600DB707E /* Utility+Encrypt.swift */; };
-		E98186D61FF6099E00876B12 /* Utility+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98186D51FF6099E00876B12 /* Utility+String.swift */; };
 		E9AD37581FFB8E3C00990AC0 /* Utility+FitScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AD37571FFB8E3C00990AC0 /* Utility+FitScreen.swift */; };
+		E9AD375A1FFB92FE00990AC0 /* Utility+Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AD37591FFB92FE00990AC0 /* Utility+Verify.swift */; };
+		E9AD375E1FFB959B00990AC0 /* Utility+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AD375D1FFB959B00990AC0 /* Utility+String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +34,9 @@
 		788DB7D5354224300FF2DBA6 /* Pods_Utility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E964F4811FFB1AA000DB707E /* Utility-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Utility-Bridging-Header.h"; sourceTree = "<group>"; };
 		E964F4871FFB227600DB707E /* Utility+Encrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+Encrypt.swift"; sourceTree = "<group>"; };
-		E98186D51FF6099E00876B12 /* Utility+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+String.swift"; sourceTree = "<group>"; };
 		E9AD37571FFB8E3C00990AC0 /* Utility+FitScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+FitScreen.swift"; sourceTree = "<group>"; };
+		E9AD37591FFB92FE00990AC0 /* Utility+Verify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+Verify.swift"; sourceTree = "<group>"; };
+		E9AD375D1FFB959B00990AC0 /* Utility+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+String.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +75,10 @@
 				04E9A4A61FF53A0C00BC2EFC /* AppDelegate.swift */,
 				04E9A4A81FF53A0C00BC2EFC /* ViewController.swift */,
 				04E9A4B81FF53A4500BC2EFC /* Utility.swift */,
-				E98186D51FF6099E00876B12 /* Utility+String.swift */,
+				E9AD375D1FFB959B00990AC0 /* Utility+String.swift */,
 				E964F4871FFB227600DB707E /* Utility+Encrypt.swift */,
 				E9AD37571FFB8E3C00990AC0 /* Utility+FitScreen.swift */,
+				E9AD37591FFB92FE00990AC0 /* Utility+Verify.swift */,
 				E964F4811FFB1AA000DB707E /* Utility-Bridging-Header.h */,
 				04E9A4AA1FF53A0C00BC2EFC /* Main.storyboard */,
 				04E9A4AD1FF53A0C00BC2EFC /* Assets.xcassets */,
@@ -239,9 +242,10 @@
 				E964F4881FFB227600DB707E /* Utility+Encrypt.swift in Sources */,
 				04E9A4A91FF53A0C00BC2EFC /* ViewController.swift in Sources */,
 				E9AD37581FFB8E3C00990AC0 /* Utility+FitScreen.swift in Sources */,
-				E98186D61FF6099E00876B12 /* Utility+String.swift in Sources */,
 				04E9A4A71FF53A0C00BC2EFC /* AppDelegate.swift in Sources */,
+				E9AD375E1FFB959B00990AC0 /* Utility+String.swift in Sources */,
 				04E9A4B91FF53A4500BC2EFC /* Utility.swift in Sources */,
+				E9AD375A1FFB92FE00990AC0 /* Utility+Verify.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

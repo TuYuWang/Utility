@@ -2,8 +2,8 @@
 //  Utility+String.swift
 //  Utility
 //
-//  Created by 涂育旺 on 2017/12/29.
-//  Copyright © 2017年 MYXG. All rights reserved.
+//  Created by 涂育旺 on 2018/1/2.
+//  Copyright © 2018年 MYXG. All rights reserved.
 //
 
 import UIKit
@@ -52,6 +52,5 @@ extension Utility {
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
     
-    
-
 }
+
