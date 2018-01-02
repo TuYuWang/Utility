@@ -47,4 +47,45 @@ extension Sequence {
     func all(matching predicate: (Iterator.Element) -> Bool) -> Bool {
         return !contains { !predicate($0) }
     }
+    
+    
+}
+
+extension Sequence where Iterator.Element: Hashable {
+    //使用set来验证唯一性
+    func unique() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter{
+            if seen.contains($0) {
+                return false
+            } else {
+                seen.insert($0)
+                return true
+            }
+        }
+        
+    }
+}
+
+extension Dictionary {
+    
+    mutating func merge<S>(_ other: S) where S: Sequence, S.Iterator.Element == (key: Key, value: Value) {
+        for (k, v) in other {
+            self[k] = v
+        }
+    }
+    
+    //通过序列初始化
+    init<S: Sequence>(_ Sequence: S) where S.Iterator.Element == (key: Key, value: Value) {
+        self = [:]
+        self.merge(Sequence)
+    }
+    
+    //替换原有的value
+    func mapValues<NewValue>(transform: (Value) -> NewValue) -> [Key: NewValue] {
+        return Dictionary<Key, NewValue>(map {(key, value) in
+            return (key, transform(value))
+        })
+    }
+
 }

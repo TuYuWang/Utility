@@ -65,6 +65,8 @@ class ViewController: UIViewController {
         print(2.0.ul.vpx)
         
         print("122222".ul.isName)
+        
+        
     }
     
     fileprivate func alamofire() {
