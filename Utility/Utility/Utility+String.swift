@@ -13,7 +13,6 @@ extension Utility where Base: Collection {
     public var hex: UIColor {
         return stringTransformToHexColor()
     }
-    
 }
 
 extension Utility {
@@ -49,4 +48,6 @@ extension Utility {
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
     
+    
+
 }
