@@ -64,8 +64,12 @@ class ViewController: UIViewController {
         print(100.ul.hpx)
         print(2.0.ul.vpx)
         
-        print("122222".ul.isName)
         
+        print("12333".ul.isPhone)
+        print("@163.com".ul.isEmail)
+        print("_aas".ul.isName)
+        print("123456".ul.isPassword)
+        print("3508211993110".ul.isIDCard)
         
     }
     
