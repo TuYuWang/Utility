@@ -72,6 +72,11 @@ class ViewController: UIViewController {
         print("123456".ul.isPassword)
         print("3508211993110".ul.isIDCard)
         
+        let dic = ["A": "a", "B": "b", "C": ["1", "2", "3"]] as [String : Any]
+        let json = JSON(dic)
+        print(json["C", 1])
+        
+        
     }
     
     fileprivate func alamofire() {
@@ -122,4 +127,9 @@ class ViewController: UIViewController {
     }
 
 }
+
+struct Test {}
+//extension Test: Collection {
+//    
+//}
 
