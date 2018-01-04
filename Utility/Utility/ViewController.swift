@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController {
 
@@ -116,6 +117,7 @@ class ViewController: UIViewController {
         //encoding
         Alamofire.request("https://httpbin.org/get", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             print(response.result.value!)
+            print(JSON(response.result.value!))
         }
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension Utility where Base: Collection {
+extension Utility where Base: EncryptCompatible {
 
     public var md5: EncryptResult {
         return encrypt(for: base, with: .md5)
@@ -156,3 +156,6 @@ extension Utility {
     
     
 }
+
+public protocol EncryptCompatible {}
+extension String: EncryptCompatible {}
