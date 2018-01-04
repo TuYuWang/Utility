@@ -71,6 +71,9 @@ class ViewController: UIViewController {
         print("123456".ul.isPassword)
         print("3508211993110".ul.isIDCard)
         
+        for prefix in PrefixSequence(string: "Hello") {
+            print(prefix)
+        }
     }
     
     fileprivate func alamofire() {
