@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController {
 
@@ -74,6 +75,11 @@ class ViewController: UIViewController {
         for prefix in PrefixSequence(string: "Hello") {
             print(prefix)
         }
+        let dic = ["A": "a", "B": "b", "C": ["1", "2", "3"]] as [String : Any]
+        let json = JSON(dic)
+        print(json["C", 1])
+        
+        
     }
     
     fileprivate func alamofire() {
@@ -119,8 +125,14 @@ class ViewController: UIViewController {
         //encoding
         Alamofire.request("https://httpbin.org/get", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             print(response.result.value!)
+            print(JSON(response.result.value!))
         }
     }
 
 }
+
+struct Test {}
+//extension Test: Collection {
+//    
+//}
 
