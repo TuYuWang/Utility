@@ -77,8 +77,10 @@ class ViewController: UIViewController {
         }
         let dic = ["A": "a", "B": "b", "C": ["1", "2", "3"]] as [String : Any]
         let json = JSON(dic)
-        print(json["C", 1])
+        print(json["C"])
         
+        let test = Test(dic)
+        print(test["C", 1])
         
     }
     
@@ -131,8 +133,163 @@ class ViewController: UIViewController {
 
 }
 
-struct Test {}
-//extension Test: Collection {
-//    
-//}
+enum TestType {
+    case array
+    case dictionary
+    case null
+}
+struct Test {
+    var type: TestType { return _type}
+    fileprivate var _type: TestType = .null
+    fileprivate var rawArray: [Any] = []
+    fileprivate var rawDictionary: [String: Any] = [:]
+    fileprivate var rawNull: NSNull = NSNull()
+    
+    init(_ object: Any) {
+        switch object {
+        case let object as [Test] where object.count > 0:
+            self.init(array: object)
+        case let object as [String: Test]  where object.count > 0:
+            self.init(dictionary: object)
+        default:
+            self.init(jsonObject: object)
+        }
+    }
+    
+    init(array: [Test]) {
+        self.init(array.map{ $0.object})
+    }
+    
+    init(dictionary: [String: Test]) {
+        var newDicitonary = [String: Any](minimumCapacity: dictionary.count)
+        for (key, json) in dictionary {
+            newDicitonary[key] = json.object
+        }
+        self.init(newDicitonary)
+    }
+    
+    init(jsonObject: Any) {
+        self.object = jsonObject
+    }
+    
+    var object: Any {
+        get {
+            switch self.type {
+            case .array:
+                return self.rawArray
+            case .dictionary:
+                return self.rawDictionary
+            default:
+                return self.rawNull
+            }
+        }
+        
+        set {
+            switch newValue {
+            case let array as [Any]:
+                _type = .array
+                self.rawArray = array
+            case let dictionary as [String: Any]:
+                _type = .dictionary
+                self.rawDictionary = dictionary
+            default:
+                _type = .null
+            }
+        }
+    }
+    
+}
+
+extension Test {
+    public subscript(path: JSONSubscriptType...) -> Test {
+        get {
+            return self[path]
+        }
+        
+        set {
+            self[path] = newValue
+        }
+    }
+    
+    public subscript(path: [JSONSubscriptType]) -> Test {
+        get {
+            return path.reduce(self) { $0[sub: $1] }
+        }
+        
+        set {
+            switch path.count {
+            case 0: return
+            case 1: self[sub:path[0]].object = newValue.object
+            default:
+                var aPath = path; aPath.remove(at: 0)
+                var nextTest = self[sub: path[0]]
+                nextTest[aPath] = newValue
+                self[sub: path[0]] = nextTest
+                
+                
+            }
+        }
+    }
+    
+    fileprivate subscript(sub sub: JSONSubscriptType) -> Test {
+        get {
+            switch sub.jsonKey {
+            case .index(let index): return self[index: index]
+            case .key(let key): return self[key: key]
+            }
+        }
+        
+        set {
+            switch sub.jsonKey {
+            case .index(let index): self[index: index] = newValue
+            case .key(let key): self[key: key] = newValue
+            }
+        }
+    }
+    
+    fileprivate subscript(index index: Int) -> Test {
+        get {
+            if self.type == .array {
+                if index >= 0 && index < self.rawArray.count {
+                    return Test(self.rawArray[index])
+                }else
+                {
+                    return Test(NSNull())
+                }
+            }else {
+                return Test(NSNull())
+            }
+        }
+        
+        set {
+            if self.type == .array {
+                if self.rawArray.count > index {
+                    self.rawArray[index] = newValue.object
+                }
+            }
+        }
+    }
+    
+    fileprivate subscript(key key: String) -> Test {
+        
+        get {
+            var t = Test(NSNull())
+            
+            if self.type == .dictionary {
+                if let o = self.rawDictionary[key] {
+                    t = Test(o)
+                }
+            }
+            
+            return t
+        }
+        
+        set {
+            if self.type == .dictionary {
+                self.rawDictionary[key] = newValue.object
+            }
+        }
+    }
+}
+
 
