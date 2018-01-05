@@ -82,6 +82,9 @@ class ViewController: UIViewController {
         let test = Test(dic)
         print(test["C", 1])
         
+        let hf = [1, 2, 3, 4, 3, 2, 1].headMirrorsTail(2)
+        print(hf)
+        
     }
     
     fileprivate func alamofire() {
@@ -293,3 +296,32 @@ extension Test {
 }
 
 
+// -----
+
+//判断一个序列的开头和结尾是否以同样的n个元素开始
+extension Sequence
+    where Iterator.Element: Equatable,
+    SubSequence: Sequence,
+    SubSequence.Iterator.Element == Iterator.Element
+{
+    func headMirrorsTail(_ n: Int) -> Bool {
+        let head = prefix(n)
+        let tail = suffix(n).reversed()
+        return head.elementsEqual(tail)
+    }
+}
+
+// -----
+
+///一个能够将元素入队和出队的类型
+protocol Queue {
+    
+    ///在self中所持有的元素的类型
+    associatedtype Element
+    
+    ///将newElement入队到self
+    mutating func enqueue(_ newElement: Element)
+    
+    ///从self出队一个元素
+    mutating func dequeue() -> Element?
+}
