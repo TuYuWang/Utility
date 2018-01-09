@@ -316,7 +316,7 @@ extension Sequence
 ///一个能够将元素入队和出队的类型
 protocol Queue {
     
-    ///在self中所持有的元素的类型
+    ///在self中所持有的元素的类型/Users/mac/Desktop/服务器/PerfectTemplate
     associatedtype Element
     
     ///将newElement入队到self
@@ -324,4 +324,27 @@ protocol Queue {
     
     ///从self出队一个元素
     mutating func dequeue() -> Element?
+}
+
+/// 一个高效的FIFO队列，其中的元素类型为Element
+struct FIFOQueue<Element>: Queue {
+    fileprivate var left: [Element] = []
+    fileprivate var right: [Element] = []
+    
+    //将元素添加到队列的最后
+    //复杂度:O(1)
+    mutating func enqueue(_ newElement: Element) {
+        right.append(newElement)
+    }
+    
+    //从队列前端移除一个元素
+    //当队列为空时，返回nil
+    //复杂度: 平摊O(1)
+    mutating func dequeue() -> Element? {
+        if left.isEmpty {
+            left = right.reversed()
+            right.removeAll()
+        }
+        return left.popLast()
+    }
 }
