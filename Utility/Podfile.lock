@@ -1,18 +1,21 @@
 PODS:
   - Alamofire (4.5.1)
+  - HandyJSON (1.8.0)
   - Kingfisher (4.2.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire
+  - HandyJSON
   - Kingfisher
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  HandyJSON: edaaa3278bf4c4c96d6f7382b80d6b91c88d3bf5
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 8c5caffdef32d797da967e241cc1e813d7c73512
+PODFILE CHECKSUM: 81af3b6720976bd903bd23bd2ed08b4a4b9f64ff
 
 COCOAPODS: 1.4.0.beta.2
