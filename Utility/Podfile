@@ -7,7 +7,7 @@ target 'Utility' do
 pod 'Alamofire'
 pod 'Kingfisher’
 pod 'SwiftyJSON'
-pod 'HandyJSON’
+#pod 'HandyJSON’
 pod 'SnapKit'
 pod 'Moya'
 

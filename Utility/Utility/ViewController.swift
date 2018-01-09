@@ -348,3 +348,30 @@ struct FIFOQueue<Element>: Queue {
         return left.popLast()
     }
 }
+
+///满足Collection
+extension FIFOQueue: Collection {
+    public var startIndex: Int { return 0 }
+    public var endIndex: Int { return left.count + right.count }
+    
+    public func index(after i: Int) -> Int {
+        precondition(i < endIndex)
+        return i + 1
+    }
+    
+    public subscript(position: Int) -> Element {
+        precondition((0..<endIndex).contains(position), "Index out of bounds")
+        if position < left.endIndex {
+            return left[left.count - position - 1]
+        } else {
+            return right[position - left.count]
+        }
+    }
+}
+
+///遵循ExpressibleByArrayLiteral
+extension FIFOQueue: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: Element...) {
+        self.init(left: elements.reversed(), right: [])
+    }
+}
