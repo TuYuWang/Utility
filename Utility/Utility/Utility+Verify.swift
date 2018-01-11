@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 校验
 extension Utility where Base: VerifyCompatible{
     
     public var isPhone: Bool {

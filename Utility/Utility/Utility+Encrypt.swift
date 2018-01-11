@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Hashable
 extension Utility where Base: EncryptCompatible {
 
     public var md5: EncryptResult {

@@ -85,6 +85,8 @@ class ViewController: UIViewController {
         let hf = [1, 2, 3, 4, 3, 2, 1].headMirrorsTail(2)
         print(hf)
         
+        
+        
     }
     
     fileprivate func alamofire() {

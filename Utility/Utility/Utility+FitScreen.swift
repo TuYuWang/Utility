@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 屏幕适配
 extension Utility where Base: FitCompatible {
     
     ///vertical pixels
