@@ -86,7 +86,6 @@ class ViewController: UIViewController {
         print(hf)
         
         
-        
     }
     
     fileprivate func alamofire() {
@@ -369,6 +368,12 @@ extension FIFOQueue: Collection {
             return right[position - left.count]
         }
     }
+    
+    ///count
+    typealias indeics = CountableRange<Int>
+    var indeics: CountableRange<Int> {
+        return startIndex..<endIndex
+    }
 }
 
 ///遵循ExpressibleByArrayLiteral
@@ -377,3 +382,4 @@ extension FIFOQueue: ExpressibleByArrayLiteral {
         self.init(left: elements.reversed(), right: [])
     }
 }
+
