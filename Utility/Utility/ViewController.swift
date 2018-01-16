@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SnapKit
 
 class ViewController: UIViewController {
 
@@ -19,7 +20,18 @@ class ViewController: UIViewController {
         utility()
         
 //        alamofire()
-
+        
+        let contentView = UIView()
+        contentView.backgroundColor = .red
+        view.addSubview(contentView)
+        
+        contentView.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.height.equalTo(100)
+            make.leading.trailing.equalTo(0)
+        }
+        
+        contentView.ul.add(coverflow: 2)
     }
 
     fileprivate func utility() {
@@ -85,7 +97,7 @@ class ViewController: UIViewController {
         let hf = [1, 2, 3, 4, 3, 2, 1].headMirrorsTail(2)
         print(hf)
         
-        
+
     }
     
     fileprivate func alamofire() {
