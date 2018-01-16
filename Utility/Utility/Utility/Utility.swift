@@ -27,6 +27,7 @@ extension String: UtilityCompatible {}
 extension CGFloat: UtilityCompatible {}
 extension Int: UtilityCompatible {}
 extension Double: UtilityCompatible {}
+extension UIView: UtilityCompatible {}
 
 extension Array {
     
