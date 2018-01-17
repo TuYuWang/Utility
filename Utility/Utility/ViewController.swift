@@ -25,13 +25,25 @@ class ViewController: UIViewController {
         contentView.backgroundColor = .red
         view.addSubview(contentView)
         
-        contentView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.height.equalTo(100)
-            make.leading.trailing.equalTo(0)
-        }
+//        contentView.snp.makeConstraints { (make) in
+//            make.centerY.equalToSuperview()
+//            make.height.equalTo(100)
+//            make.leading.trailing.equalTo(0)
+//        }
+        contentView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: 100)
         
         contentView.ul.add(coverflow: 2)
+        
+        let line = UIView()
+        line.backgroundColor = .red
+        view.addSubview(line)
+        
+        line.snp.makeConstraints { (make) in
+            make.width.equalTo(1)
+            make.top.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
     }
 
     fileprivate func utility() {
@@ -41,7 +53,7 @@ class ViewController: UIViewController {
         diys.accumulate(0, +)
         
         diys.accumulate(2) { (a, b) -> Int in
-        return a + b
+            return a + b
         }
         
         diys.reduce(0, +)
