@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         contentView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: 100)
         
         contentView.ul.add(coverflow: 2)
-        
+        contentView.coverFlowView.scrollToItem(at: IndexPath(row: 6, section: 0), at: .centeredVertically, animated: true)
         let line = UIView()
         line.backgroundColor = .red
         view.addSubview(line)
