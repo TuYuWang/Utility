@@ -86,16 +86,24 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
-//        let page = roundf(Float(targetContentOffset.pointee.x / pageWidth))
+        let page = roundf(Float(targetContentOffset.pointee.x / pageWidth))
 //        let targetX = Float(pageWidth) * page
 //        targetContentOffset.pointee.x = CGFloat(targetX)
         
-        let x_collectionView = scrollView.convert(targetContentOffset.pointee, to: coverFlowView)
+//        let x_collectionView = scrollView.convert(targetContentOffset.pointee, to: coverFlowView)
+//
+//        let point = CGPoint(x: targetContentOffset.pointee.x, y: targetContentOffset.pointee.y)
         
-        let point = CGPoint(x: targetContentOffset.pointee.x, y: targetContentOffset.pointee.y)
+//        let indexPath = coverFlowView.indexPathForItem(at: x_collectionView)
+//        coverFlowView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
+//        var centerCell: CoverFlowCell
+//        for item in coverFlowView.visibleCells {
+//            let covertFrame = coverFlowView.convert(CGPoint.init(x: item.center.x, y: 0), to: self)
+//            
+//            
+//        }
+//        
         
-        let indexPath = coverFlowView.indexPathForItem(at: x_collectionView)
-        coverFlowView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
 
     }
     
