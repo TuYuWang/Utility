@@ -13,7 +13,7 @@ protocol CoverFlowProtocol {
     var count: Int { get }
     var coverFlowView: UICollectionView { get }
     var layout: CoverFlowLayout { get }
-    var pageWidth: Float { get }
+    var pageWidth: CGFloat { get }
 }
 
 extension CoverFlowProtocol {
@@ -30,8 +30,8 @@ extension CoverFlowProtocol {
         return layout
     }
     
-    var pageWidth: Float {
-        return Float(layout.itemSize.width + layout.minimumLineSpacing)
+    var pageWidth: CGFloat {
+        return layout.itemSize.width + layout.minimumLineSpacing
     }
 }
 
@@ -74,16 +74,7 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let half = CGFloat(collectionView.visibleCells.count / 2)
-//        let row = CGFloat(indexPath.row)
-//        let x = CGFloat(Float(half - row)*pageWidth - pageWidth/2)
-//
-//        if row < half || row > 100 - 1 - half  {
-//            let point = CGPoint(x: -x, y: 0)
-//            collectionView.setContentOffset(point, animated: true)
-//        } else {
-//            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        }
+        
         let cell = collectionView.cellForItem(at: indexPath)
         let cellCenter = cell!.center.x
         let convertCell = collectionView.convert(CGPoint(x: cellCenter, y: 0), to: self)
@@ -95,10 +86,16 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
-        let page = roundf(Float(targetContentOffset.pointee.x) / pageWidth)
-        let targetX = pageWidth * page
+//        let page = roundf(Float(targetContentOffset.pointee.x / pageWidth))
+//        let targetX = Float(pageWidth) * page
+//        targetContentOffset.pointee.x = CGFloat(targetX)
         
-        targetContentOffset.pointee.x = CGFloat(targetX)
+        let x_collectionView = scrollView.convert(targetContentOffset.pointee, to: coverFlowView)
+        
+        let point = CGPoint(x: targetContentOffset.pointee.x, y: targetContentOffset.pointee.y)
+        
+        let indexPath = coverFlowView.indexPathForItem(at: x_collectionView)
+        coverFlowView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
 
     }
     
