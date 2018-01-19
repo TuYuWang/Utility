@@ -19,7 +19,7 @@ protocol CoverFlowProtocol {
 extension CoverFlowProtocol {
     
     var count: Int {
-        return 7
+        return 8
     }
     
     var layout: CoverFlowLayout {
@@ -43,19 +43,29 @@ enum Configuration {
     
 }
 
+private var coverFlowKey: Void?
+
 extension UIView: CoverFlowProtocol {
     
     var coverFlowView: UICollectionView {
         
-        let coverFlowView = UICollectionView(frame:bounds, collectionViewLayout: layout)
-        coverFlowView.register(CoverFlowCell.self, forCellWithReuseIdentifier: "coverFlowCell")
-        coverFlowView.backgroundColor = .white
-        coverFlowView.delegate = self
-        coverFlowView.dataSource = self
-        coverFlowView.showsHorizontalScrollIndicator = false
+//        let coverFlowView = UICollectionView(frame:bounds, collectionViewLayout: layout)
+//        coverFlowView.register(CoverFlowCell.self, forCellWithReuseIdentifier: "coverFlowCell")
+//        coverFlowView.backgroundColor = .white
+//        coverFlowView.delegate = self
+//        coverFlowView.dataSource = self
+//        coverFlowView.showsHorizontalScrollIndicator = false
+//
+////        coverFlowView.contentInset = UIEdgeInsetsMake(0, CGFloat(3*pageWidth)-layout.itemSize.width/2, 0, CGFloat(3*pageWidth)-layout.itemSize.width/2)
+//        return coverFlowView
         
-//        coverFlowView.contentInset = UIEdgeInsetsMake(0, CGFloat(3*pageWidth)-layout.itemSize.width/2, 0, CGFloat(3*pageWidth)-layout.itemSize.width/2)
-        return coverFlowView
+        set {
+            objc_setAssociatedObject(self, &coverFlowKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        
+        get {
+            return objc_getAssociatedObject(self, &coverFlowKey) as! UICollectionView
+        }
     }
     
 
@@ -70,13 +80,14 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "coverFlowCell", for: indexPath) as! CoverFlowCell
         cell.lab.text = "\(indexPath.row)"
+    
         return cell
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let cell = collectionView.cellForItem(at: indexPath)
-        let cellCenter = cell!.center.x
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        let cellCenter = cell.center.x
         let convertCell = collectionView.convert(CGPoint(x: cellCenter, y: 0), to: self)
         
         var idx = CGPoint(x: convertCell.x - center.x, y: 0)
@@ -86,25 +97,20 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
-        let page = roundf(Float(targetContentOffset.pointee.x / pageWidth))
-//        let targetX = Float(pageWidth) * page
-//        targetContentOffset.pointee.x = CGFloat(targetX)
+        let page = Int(targetContentOffset.pointee.x / pageWidth)
         
-//        let x_collectionView = scrollView.convert(targetContentOffset.pointee, to: coverFlowView)
-//
-//        let point = CGPoint(x: targetContentOffset.pointee.x, y: targetContentOffset.pointee.y)
+        let targetIndexPath = IndexPath(row: page, section: 0)
         
-//        let indexPath = coverFlowView.indexPathForItem(at: x_collectionView)
-//        coverFlowView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
-//        var centerCell: CoverFlowCell
-//        for item in coverFlowView.visibleCells {
-//            let covertFrame = coverFlowView.convert(CGPoint.init(x: item.center.x, y: 0), to: self)
-//            
-//            
-//        }
-//        
+        let targetCell = coverFlowView.dequeueReusableCell(withReuseIdentifier: "coverFlowCell", for: targetIndexPath)
         
-
+        let convertCell = coverFlowView.convert(targetCell.center, to: self)
+        
+        var idxp = CGPoint(x: convertCell.x - center.x, y: 0)
+        
+        idxp = CGPoint(x: coverFlowView.contentOffset.x + idxp.x, y: 0)
+        
+        targetContentOffset.pointee.x = idxp.x
+    
     }
     
 }
@@ -113,10 +119,18 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
 extension Utility where Base: UIView {
     
     func add(coverflow count: Int = 0, cofiguration: Configuration? = .default) {
+       
+        base.coverFlowView = UICollectionView(frame:base.bounds, collectionViewLayout: base.layout)
+        base.coverFlowView.register(CoverFlowCell.self, forCellWithReuseIdentifier: "coverFlowCell")
+        base.coverFlowView.backgroundColor = .white
+        base.coverFlowView.delegate = base
+        base.coverFlowView.dataSource = base
+        base.coverFlowView.showsHorizontalScrollIndicator = false
+
         base.addSubview(base.coverFlowView)
+
+
     }
-    
-    
 }
 
 // MARK: - Cell
@@ -139,6 +153,7 @@ class CoverFlowCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 // MARK: Layout

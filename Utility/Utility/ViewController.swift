@@ -13,6 +13,8 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    var contentView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,7 +23,7 @@ class ViewController: UIViewController {
         
 //        alamofire()
         
-        let contentView = UIView()
+        contentView = UIView()
         contentView.backgroundColor = .red
         view.addSubview(contentView)
         
@@ -33,7 +35,10 @@ class ViewController: UIViewController {
         contentView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: 100)
         
         contentView.ul.add(coverflow: 2)
-        contentView.coverFlowView.scrollToItem(at: IndexPath(row: 6, section: 0), at: .centeredVertically, animated: true)
+        
+        defer {
+            print(contentView.coverFlowView.visibleCells)
+        }
         let line = UIView()
         line.backgroundColor = .red
         view.addSubview(line)
@@ -44,8 +49,16 @@ class ViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
+
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+//        print(contentView.coverFlowView.visibleCells)
+//    contentView.collectionView(contentView.coverFlowView, didSelectItemAt: IndexPath(row: 0, section: 0))
+
+    }
+    
     fileprivate func utility() {
     
         let diys = [1, 2, 3, 4]
