@@ -14,6 +14,8 @@ protocol CoverFlowProtocol {
     var coverFlowView: UICollectionView { get }
     var layout: CoverFlowLayout { get }
     var pageWidth: CGFloat { get }
+    var marginValue: CGPoint? { get }
+    
 }
 
 extension CoverFlowProtocol {
@@ -44,21 +46,11 @@ enum Configuration {
 }
 
 private var coverFlowKey: Void?
+private var marginValueKey: Void?
 
 extension UIView: CoverFlowProtocol {
     
     var coverFlowView: UICollectionView {
-        
-//        let coverFlowView = UICollectionView(frame:bounds, collectionViewLayout: layout)
-//        coverFlowView.register(CoverFlowCell.self, forCellWithReuseIdentifier: "coverFlowCell")
-//        coverFlowView.backgroundColor = .white
-//        coverFlowView.delegate = self
-//        coverFlowView.dataSource = self
-//        coverFlowView.showsHorizontalScrollIndicator = false
-//
-////        coverFlowView.contentInset = UIEdgeInsetsMake(0, CGFloat(3*pageWidth)-layout.itemSize.width/2, 0, CGFloat(3*pageWidth)-layout.itemSize.width/2)
-//        return coverFlowView
-        
         set {
             objc_setAssociatedObject(self, &coverFlowKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -68,7 +60,15 @@ extension UIView: CoverFlowProtocol {
         }
     }
     
-
+    var marginValue: CGPoint? {
+        set {
+            objc_setAssociatedObject(self, &marginValueKey, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        }
+        
+        get {
+            return objc_getAssociatedObject(self, &marginValueKey) as? CGPoint
+        }
+    }
 }
 
 extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -109,9 +109,33 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         idxp = CGPoint(x: coverFlowView.contentOffset.x + idxp.x, y: 0)
         
-        targetContentOffset.pointee.x = idxp.x
-    
+        if page == 0 {
+            marginValue = idxp
+            
+        } else {
+            targetContentOffset.pointee.x = idxp.x
+        }
+        
     }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+//        guard let idx = marginValue else {
+//            return
+//        }
+//        coverFlowView.setContentOffset(idx, animated: true)
+//        marginValue = nil
+    }
+    
+
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard let idx = marginValue else {
+            return
+        }
+        coverFlowView.setContentOffset(idx, animated: true)
+        marginValue = nil
+    }
+    
     
 }
 
@@ -163,24 +187,24 @@ class CoverFlowLayout: UICollectionViewFlowLayout {
         scrollDirection = .horizontal
         let attributes = super.layoutAttributesForElements(in: rect)
         
-//        guard let collectionView = collectionView else { return attributes }
-//
-//        let contentOffsetX = collectionView.contentOffset.x
-//        let collectionViewCenterX = collectionView.frame.width*0.5
-//
-//        attributes?.forEach({ (attribute) in
-//            var scale = 1 - fabs(attribute.center.x - contentOffsetX - collectionViewCenterX) / collectionView.frame.width
-//            scale = max(scale, 0.7)
-//            attribute.transform = CGAffineTransform(scaleX: scale, y: scale*1.5)
-//            let red = 240/255*scale
-//            let green = 151/255*scale
-//            let blue = 56/255*scale
-//            let font = 36+16*scale
-//
-//            let cell = collectionView.cellForItem(at: attribute.indexPath)
-//            cell?.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
-//
-//        })
+        guard let collectionView = collectionView else { return attributes }
+
+        let contentOffsetX = collectionView.contentOffset.x
+        let collectionViewCenterX = collectionView.frame.width*0.5
+
+        attributes?.forEach({ (attribute) in
+            var scale = 1 - fabs(attribute.center.x - contentOffsetX - collectionViewCenterX) / collectionView.frame.width
+            scale = max(scale, 0.7)
+            attribute.transform = CGAffineTransform(scaleX: scale, y: scale*1.5)
+            let red = 240/255*scale
+            let green = 151/255*scale
+            let blue = 56/255*scale
+            let font = 36+16*scale
+
+            let cell = collectionView.cellForItem(at: attribute.indexPath)
+            cell?.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
+
+        })
 
         
         return attributes
