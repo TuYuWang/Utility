@@ -122,7 +122,14 @@ class ViewController: UIViewController {
         let hf = [1, 2, 3, 4, 3, 2, 1].headMirrorsTail(2)
         print(hf)
         
-
+//        let s = "fao"
+//        let i = Int(s) !! "Expectiong interger, got\"\(s)\""
+        
+//        let i = Int("fals") !? "Expectiong interger"
+        
+//        var output: String? = nil
+//        output?.write("something") !? "Was not expecting chained nil here"
+        
     }
     
     fileprivate func alamofire() {
@@ -239,7 +246,7 @@ struct Test {
         }
     }
     
-}
+} 
 
 extension Test {
     public subscript(path: JSONSubscriptType...) -> Test {

@@ -14,14 +14,13 @@ protocol CoverFlowProtocol {
     var coverFlowView: UICollectionView { get }
     var layout: CoverFlowLayout { get }
     var pageWidth: CGFloat { get }
-    var marginValue: CGPoint? { get }
     
 }
 
 extension CoverFlowProtocol {
     
     var count: Int {
-        return 8
+        return 6
     }
     
     var layout: CoverFlowLayout {
@@ -38,15 +37,44 @@ extension CoverFlowProtocol {
 }
 
 enum Configuration {
-    case view
-    case image
+    case coverFlowCell(UICollectionViewCell)
     case text([UIColor])
     case `default`
     
 }
+//
+//extension Collection where Iterator.Element == Configuration {
+//    func lastMatchIgnoringAssociatedValue(_ target: Iterator.Element) -> Iterator.Element? {
+//        return reversed().first { $0 +== target }
+//    }
+//}
+//
+//extension Collection where Iterator.Element == Configuration {
+//
+//     var coverFlowView: UICollectionViewCell {
+//        if let item = lastMatchIgnoringAssociatedValue(.coverFlowView(CoverFlowCell)), case .coverFlowView(let collectionView) = item {
+//            return collectionView
+//        }
+//        return self.coverFlowView
+//    }
+//}
+//
+//precedencegroup ItemPrecedence {
+//    associativity: none
+//    higherThan: LogicalConjunctionPrecedence
+//}
+//
+//infix operator +== : ItemPrecedence
+//
+//func +== (lhs: Configuration, rhs: Configuration) -> Bool {
+//    switch (lhs, rhs) {
+//    case (.coverFlowCell(_), .coverFlowCell(_)): return true
+//    case (.text(_), .text(_)): return true
+//    default: return false
+//    }
+//}
 
 private var coverFlowKey: Void?
-private var marginValueKey: Void?
 
 extension UIView: CoverFlowProtocol {
     
@@ -57,16 +85,6 @@ extension UIView: CoverFlowProtocol {
         
         get {
             return objc_getAssociatedObject(self, &coverFlowKey) as! UICollectionView
-        }
-    }
-    
-    var marginValue: CGPoint? {
-        set {
-            objc_setAssociatedObject(self, &marginValueKey, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-        }
-        
-        get {
-            return objc_getAssociatedObject(self, &marginValueKey) as? CGPoint
         }
     }
 }
@@ -97,7 +115,7 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
-        let page = Int(targetContentOffset.pointee.x / pageWidth)
+        let page = Int((targetContentOffset.pointee.x + frame.width/2) / pageWidth)
         
         let targetIndexPath = IndexPath(row: page, section: 0)
         
@@ -109,33 +127,9 @@ extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         idxp = CGPoint(x: coverFlowView.contentOffset.x + idxp.x, y: 0)
         
-        if page == 0 {
-            marginValue = idxp
-            
-        } else {
-            targetContentOffset.pointee.x = idxp.x
-        }
-        
-    }
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-//        guard let idx = marginValue else {
-//            return
-//        }
-//        coverFlowView.setContentOffset(idx, animated: true)
-//        marginValue = nil
-    }
-    
+        targetContentOffset.pointee.x = idxp.x
 
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard let idx = marginValue else {
-            return
-        }
-        coverFlowView.setContentOffset(idx, animated: true)
-        marginValue = nil
     }
-    
     
 }
 
@@ -150,7 +144,6 @@ extension Utility where Base: UIView {
         base.coverFlowView.delegate = base
         base.coverFlowView.dataSource = base
         base.coverFlowView.showsHorizontalScrollIndicator = false
-
         base.addSubview(base.coverFlowView)
 
 
@@ -185,14 +178,17 @@ class CoverFlowLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         scrollDirection = .horizontal
-        let attributes = super.layoutAttributesForElements(in: rect)
+        guard let layoutAttributes = super.layoutAttributesForElements(in: rect) else {
+            return nil
+        }
+        let attributes = NSArray(array: layoutAttributes, copyItems: true) as! [UICollectionViewLayoutAttributes]
         
         guard let collectionView = collectionView else { return attributes }
 
         let contentOffsetX = collectionView.contentOffset.x
         let collectionViewCenterX = collectionView.frame.width*0.5
 
-        attributes?.forEach({ (attribute) in
+        attributes.forEach({ (attribute) in
             var scale = 1 - fabs(attribute.center.x - contentOffsetX - collectionViewCenterX) / collectionView.frame.width
             scale = max(scale, 0.7)
             attribute.transform = CGAffineTransform(scaleX: scale, y: scale*1.5)
