@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 //            make.height.equalTo(100)
 //            make.leading.trailing.equalTo(0)
 //        }
-        contentView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: 100)
+        contentView.frame = CGRect(x: 0, y: 200, width: view.frame.width, height: 300)
         
         contentView.ul.add(coverflow: 2)
         
@@ -130,6 +130,7 @@ class ViewController: UIViewController {
 //        var output: String? = nil
 //        output?.write("something") !? "Was not expecting chained nil here"
         
+        print(condition: false, message: "you gess")
     }
     
     fileprivate func alamofire() {

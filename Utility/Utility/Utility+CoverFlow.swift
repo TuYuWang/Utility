@@ -20,7 +20,7 @@ protocol CoverFlowProtocol {
 extension CoverFlowProtocol {
     
     var count: Int {
-        return 6
+        return 2
     }
     
     var layout: CoverFlowLayout {
@@ -42,6 +42,18 @@ enum Configuration {
     case `default`
     
 }
+
+enum CoverFlowBackground: String {
+    case item1
+    case item2
+    case item3
+    case item4
+    
+    var image: UIImage? {
+        return rawValue.ul.img
+    }
+}
+
 //
 //extension Collection where Iterator.Element == Configuration {
 //    func lastMatchIgnoringAssociatedValue(_ target: Iterator.Element) -> Iterator.Element? {
@@ -92,13 +104,16 @@ extension UIView: CoverFlowProtocol {
 extension UIView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return 4
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "coverFlowCell", for: indexPath) as! CoverFlowCell
         cell.lab.text = "\(indexPath.row)"
-    
+        
+        let images: [CoverFlowBackground] = [.item1, .item2, .item3, .item4]
+        cell.backgroundImageView.image = images[indexPath.row].image
+        
         return cell
     }
     
@@ -154,11 +169,16 @@ extension Utility where Base: UIView {
 class CoverFlowCell: UICollectionViewCell {
     
     var lab: UILabel!
+    var backgroundImageView: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .red
+        
+        backgroundImageView = UIImageView()
+        backgroundImageView.frame = bounds
+        addSubview(backgroundImageView)
         
         lab = UILabel()
         lab.frame = bounds

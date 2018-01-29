@@ -15,6 +15,7 @@
 		1039332823CDF20B2D7F8266 /* Pods_Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788DB7D5354224300FF2DBA6 /* Pods_Utility.framework */; };
 		E95746C62015E0D50069E8DF /* Utility+Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95746C52015E0D50069E8DF /* Utility+Copy.swift */; };
 		E966823D2014677000111ECC /* Utility+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E966823C2014677000111ECC /* Utility+Gradient.swift */; };
+		E9752EDC201EF22E003648F9 /* Utility+Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9752EDB201EF22E003648F9 /* Utility+Log.swift */; };
 		E97B41AE20159590008B1788 /* Utility+Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97B41AD20159590008B1788 /* Utility+Operator.swift */; };
 		E982DC29200D999400F2CB1B /* Utility+Encrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982DC23200D999400F2CB1B /* Utility+Encrypt.swift */; };
 		E982DC2A200D999400F2CB1B /* Utility+FitScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982DC24200D999400F2CB1B /* Utility+FitScreen.swift */; };
@@ -37,6 +38,7 @@
 		788DB7D5354224300FF2DBA6 /* Pods_Utility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E95746C52015E0D50069E8DF /* Utility+Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+Copy.swift"; sourceTree = "<group>"; };
 		E966823C2014677000111ECC /* Utility+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+Gradient.swift"; sourceTree = "<group>"; };
+		E9752EDB201EF22E003648F9 /* Utility+Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+Log.swift"; sourceTree = "<group>"; };
 		E97B41AD20159590008B1788 /* Utility+Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+Operator.swift"; sourceTree = "<group>"; };
 		E982DC23200D999400F2CB1B /* Utility+Encrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utility+Encrypt.swift"; sourceTree = "<group>"; };
 		E982DC24200D999400F2CB1B /* Utility+FitScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utility+FitScreen.swift"; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				E982DC25200D999400F2CB1B /* Utility+String.swift */,
 				E982DC26200D999400F2CB1B /* Utility+Verify.swift */,
 				E97B41AD20159590008B1788 /* Utility+Operator.swift */,
+				E9752EDB201EF22E003648F9 /* Utility+Log.swift */,
 				E95746C52015E0D50069E8DF /* Utility+Copy.swift */,
 				E982DC27200D999400F2CB1B /* Utility-Bridging-Header.h */,
 			);
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E982DC2F200D9E8200F2CB1B /* Utility+CoverFlow.swift in Sources */,
+				E9752EDC201EF22E003648F9 /* Utility+Log.swift in Sources */,
 				E982DC2D200D999400F2CB1B /* Utility.swift in Sources */,
 				E97B41AE20159590008B1788 /* Utility+Operator.swift in Sources */,
 				E966823D2014677000111ECC /* Utility+Gradient.swift in Sources */,
