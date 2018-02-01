@@ -160,7 +160,8 @@ extension Utility where Base: UIView {
         base.coverFlowView.dataSource = base
         base.coverFlowView.showsHorizontalScrollIndicator = false
         base.addSubview(base.coverFlowView)
-
+        let inset = base.coverFlowView.bounds.size.width / 2 - base.layout.itemSize.width / 2
+        base.coverFlowView.contentInset = UIEdgeInsetsMake(0, inset, 0, inset)
 
     }
 }
