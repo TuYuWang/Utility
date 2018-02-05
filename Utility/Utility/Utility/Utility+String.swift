@@ -17,7 +17,19 @@ extension Utility where Base: Collection {
     public var img: UIImage? {
         return UIImage(named: String(describing: base))
     }
+    
+    // 中间字段加星星
+    public var starMiddle: String? {
+        return nil
+    }
+    
+    //除首位加星星
+    public var starEnd: String? {
+        return nil
+    }
 }
+
+// MARK: Hex
 
 extension Utility {
     
@@ -25,7 +37,8 @@ extension Utility {
         
         let hexStr = String(describing: base)
         var str = hexStr.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        if str.characters.count < 6 {
+    
+        if str.count < 6 {
             return UIColor.clear
         }
         if str.hasPrefix("0X") {
@@ -34,7 +47,7 @@ extension Utility {
         if str.hasPrefix("#") {
             str.removeFirst()
         }
-        if str.characters.count != 6 {
+        if str.count != 6 {
             return UIColor.clear
         }
         
@@ -52,5 +65,25 @@ extension Utility {
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
     
+    
 }
 
+// MARK: Star
+
+enum Star {
+    case end
+    case custom(Range<Int>)
+}
+
+extension Utility {
+    
+    fileprivate func star(_ type: Star) {
+        
+        switch type {
+        case .end:
+            break
+        case .custom(let range):
+            break
+        }
+    }
+}

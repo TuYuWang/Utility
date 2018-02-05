@@ -20,6 +20,8 @@ extension Utility where Base: FitCompatible {
     public var hpx: CGFloat {
         return base.value * UIScreen.main.bounds.width/750
     }
+    
+    
 }
 
 public protocol FitCompatible {
@@ -36,4 +38,16 @@ extension Int: FitCompatible {
 
 extension Double: FitCompatible {
     public var value: CGFloat { return CGFloat(self) }
+}
+
+extension Utility {
+    ///screen width
+    public var snWidth: CGFloat {
+        return UIScreen.main.bounds.width
+    }
+    
+    ///screen height
+    public var snHeight: CGFloat {
+        return UIScreen.main.bounds.height
+    }
 }

@@ -56,6 +56,17 @@ class ViewController: UIViewController {
         super.touchesBegan(touches, with: event)
 //        print(contentView.coverFlowView.visibleCells)
 //    contentView.collectionView(contentView.coverFlowView, didSelectItemAt: IndexPath(row: 0, section: 0))
+        
+        ul.show(custom: AlertView().ul.xib!)
+
+            .cancel { (_) in
+                print("cancel")
+            }
+            .success { (_) in
+                print("success")
+        }
+        print(self.view.frame)
+        
 
     }
     
@@ -131,6 +142,11 @@ class ViewController: UIViewController {
 //        output?.write("something") !? "Was not expecting chained nil here"
         
         print(condition: false, message: "you gess")
+        
+        
+        
+        
+        
     }
     
     fileprivate func alamofire() {
