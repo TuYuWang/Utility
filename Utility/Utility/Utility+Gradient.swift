@@ -10,8 +10,6 @@ protocol GradientCompatible {
     
 }
 
-
-
 extension Utility where Base: GradientCompatible {
     
 }

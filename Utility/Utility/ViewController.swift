@@ -49,25 +49,18 @@ class ViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-
+        view.ul.add(verifyCode: CGRect(x: 100, y: 100, width: 150, height: 50)){
+            print("458")
+        }
+        
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-//        print(contentView.coverFlowView.visibleCells)
-//    contentView.collectionView(contentView.coverFlowView, didSelectItemAt: IndexPath(row: 0, section: 0))
-        
-        ul.show(custom: AlertView().ul.xib!)
 
-            .cancel { (_) in
-                print("cancel")
-            }
-            .success { (_) in
-                print("success")
-        }
-        print(self.view.frame)
-        
-
+       
+        showSystemAlert()
+    
     }
     
     fileprivate func utility() {
@@ -196,6 +189,18 @@ class ViewController: UIViewController {
         }
     }
 
+    func showSystemAlert() {
+        let alertController = UIAlertController(title: "title", message: "message", preferredStyle: .alert)
+        let attrubite: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 22), .foregroundColor: UIColor.red]
+        
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let ok = UIAlertAction(title: "ok", style: .default, handler: nil)
+        alertController.addAction(ok)
+        alertController.addAction(cancel)
+        alertController.title(attrubite).message(attrubite).cancel(.red).sure(.yellow)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 enum TestType {

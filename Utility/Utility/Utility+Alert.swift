@@ -8,57 +8,47 @@
 
 import UIKit
 
-public typealias AlertActionCallback = ((Any) -> Void)?
+// MARK: System
 
-public protocol AlertActionCompatible {
-    func successClick(callback : AlertActionCallback)
-    func cancelClick(callback: AlertActionCallback)
+typealias attribute = [NSAttributedStringKey: Any]
+
+fileprivate enum attributeKey: String {
+    
+    case attributedTitle
+    case attributedMessage
+    case titleTextColor
+    
 }
-
-
-extension Utility where Base: UIViewController {
+extension UIAlertController {
     
     @discardableResult
-    func show(custom: UIView) -> Utility {
-        let alertController = initAlertController()
-        alertController.view.addSubview(custom)
-        custom.frame = CGRect(x: 0, y: 0, width: snWidth, height: snHeight/1.9)
-//        alertController.view.frame = CGRect(x: 0, y: 0, width: snWidth, height: snHeight/1.9);
-        base.present(alertController, animated: true, completion: nil)
-        print(alertController.view.subviews)
-        print(alertController.view.frame)
-        
-        
+    func title(_ type: attribute) -> UIAlertController {
+        guard let title = self.title else { return self }
+        let attributeTitle = NSAttributedString(string: title, attributes: type)
+        self.setValue(attributeTitle, forKey: attributeKey.attributedTitle.rawValue)
         return self
     }
     
     @discardableResult
-    func success(_ callback: AlertActionCallback) -> Utility {
-        guard case let view as AlertView = base.view.subviews.last else { return self }
-        view.successClick(callback: callback)
+    func message(_ type: attribute) -> UIAlertController {
+        guard let message = self.message else { return self }
+        let attributeMessage = NSAttributedString(string: message, attributes: type)
+        self.setValue(attributeMessage, forKey: attributeKey.attributedMessage.rawValue)
         return self
     }
     
     @discardableResult
-    func cancel(_ callback: AlertActionCallback) -> Utility {
-        guard case let view as AlertView = base.view.subviews.last else { return self }
-        view.cancelClick(callback: callback)
+    func cancel(_ type: UIColor) -> UIAlertController {
+        let actions = self.actions.filter { $0.style == .cancel }
+        guard let action = actions.first else { return self }
+        action.setValue(type, forKey: attributeKey.titleTextColor.rawValue)
         return self
     }
-}
-
-extension Utility {
     
-    fileprivate func initAlertController() -> UIAlertController {
-        return UIAlertController(title: "", message: "", preferredStyle: .alert)
-    }
-}
-
-extension UIViewController: UtilityCompatible {}
-
-class CustomAlertController: UIAlertController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    @discardableResult
+    func sure(_ type: UIColor) -> UIAlertController {
+        let actions = self.actions.filter { $0.style == .default }
+        _ = actions.map { $0.setValue(type, forKey: attributeKey.titleTextColor.rawValue) }
+        return self
     }
 }
