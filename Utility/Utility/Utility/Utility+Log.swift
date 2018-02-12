@@ -11,3 +11,4 @@ func print(condition: Bool, message: @autoclosure() -> String, file: String = #f
     if condition { return }
     print("------------------------\nFaild: \(message()) \nflie: \(file) \nfunction: \(function) \nline: \(line)\n------------------------")
 }
+

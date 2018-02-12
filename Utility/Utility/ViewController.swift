@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         utility()
         
@@ -36,9 +35,6 @@ class ViewController: UIViewController {
         
         contentView.ul.add(coverflow: 2)
         
-        defer {
-            print(contentView.coverFlowView.visibleCells)
-        }
         let line = UIView()
         line.backgroundColor = .red
         view.addSubview(line)

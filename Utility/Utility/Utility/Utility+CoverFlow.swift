@@ -9,12 +9,12 @@
 import UIKit
 
 // MARK: CoverFlowProtocol
+
 protocol CoverFlowProtocol {
     var count: Int { get }
     var coverFlowView: UICollectionView { get }
     var layout: CoverFlowLayout { get }
     var pageWidth: CGFloat { get }
-    
 }
 
 extension CoverFlowProtocol {
@@ -153,12 +153,14 @@ extension Utility where Base: UIView {
     
     func add(coverflow count: Int = 0, cofiguration: Configuration? = .default) {
        
-        base.coverFlowView = UICollectionView(frame:base.bounds, collectionViewLayout: base.layout)
-        base.coverFlowView.register(CoverFlowCell.self, forCellWithReuseIdentifier: "coverFlowCell")
-        base.coverFlowView.backgroundColor = .white
-        base.coverFlowView.delegate = base
-        base.coverFlowView.dataSource = base
-        base.coverFlowView.showsHorizontalScrollIndicator = false
+        base.coverFlowView = Init(UICollectionView(frame:base.bounds, collectionViewLayout: base.layout)) {
+                $0.register(CoverFlowCell.self, forCellWithReuseIdentifier: "coverFlowCell")
+                $0.backgroundColor = .white
+                $0.delegate = base
+                $0.dataSource = base
+                $0.showsHorizontalScrollIndicator = false
+            }
+        
         base.addSubview(base.coverFlowView)
         let inset = base.coverFlowView.bounds.size.width / 2 - base.layout.itemSize.width / 2
         base.coverFlowView.contentInset = UIEdgeInsetsMake(0, inset, 0, inset)
