@@ -35,19 +35,9 @@ class ViewController: UIViewController {
         
         contentView.ul.add(coverflow: 2)
         
-        let line = UIView()
-        line.backgroundColor = .red
-        view.addSubview(line)
-        
-        line.snp.makeConstraints { (make) in
-            make.width.equalTo(1)
-            make.top.bottom.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
-        
-        view.ul.add(verifyCode: CGRect(x: 100, y: 100, width: 150, height: 50)){
-            print("458")
-        }
+//        view.ul.add(verifyCode: CGRect(x: 100, y: 100, width: 150, height: 50)){
+//            print("458")
+//        }
         
     }
 
